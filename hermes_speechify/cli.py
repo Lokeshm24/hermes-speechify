@@ -15,7 +15,7 @@ def setup(parser: argparse.ArgumentParser) -> None:
 
     voices = sub.add_parser("voices", help="List the Speechify voices your API key can use")
     voices.add_argument(
-        "--model", help="Only voices for this model (default: your configured model)"
+        "--model", help="Only voices for this model, e.g. simba-3.2 (default: all models)"
     )
     voices.add_argument("--locale", help="Only voices for this locale, e.g. en or en-US")
     voices.add_argument("--search", help="Only voices whose id or name contains this text")
@@ -41,9 +41,10 @@ def _print_voices(voices: list[dict[str, Any]]) -> None:
     width = max(len(str(v["id"])) for v in voices)
     for v in sorted(voices, key=lambda v: (v.get("language", ""), str(v["id"]))):
         extra = " (your clone)" if v.get("type") == "personal" else ""
+        models = ",".join(v.get("models") or [])
         print(
             f"{v['id']:<{width}}  {v.get('language', ''):<6} {v.get('gender', ''):<14} "
-            f"{v.get('display', '')}{extra}"
+            f"{models:<20} {v.get('display', '')}{extra}"
         )
     print(f"\n{len(voices)} voices. Set one with `tts.speechify.voice` in ~/.hermes/config.yaml.")
 
@@ -53,7 +54,9 @@ def handle(args: argparse.Namespace) -> int:
     provider = _provider()
     try:
         if command == "voices":
-            voices = provider.fetch_voices(model=args.model, locale=args.locale)
+            voices = provider.fetch_voices(
+                model=args.model, locale=args.locale, any_model=not args.model
+            )
             if args.search:
                 needle = args.search.lower()
                 voices = [

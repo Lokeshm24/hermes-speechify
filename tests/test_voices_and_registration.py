@@ -49,6 +49,7 @@ def test_list_voices_follows_cursor(fake_env, http):
         "gender": "male",
         "preview_url": "https://cdn.test/alec.mp3",
         "type": "shared",
+        "models": ["simba-3.2"],
     }
     calls = http["calls"]
     assert [c["params"].get("cursor") for c in calls] == [None, "c1", "c2"]
@@ -113,6 +114,8 @@ def test_cli_voices(fake_env, http, capsys):
     assert cli.handle(_parse("voices", "--search", "gef")) == 0
     out = capsys.readouterr().out
     assert "geffen_32" in out and "alec" not in out
+    # the CLI lists every model unless --model is given
+    assert "model" not in http["calls"][0]["params"]
 
 
 def test_cli_reports_errors(fake_env, http, capsys):

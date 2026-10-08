@@ -51,6 +51,7 @@ List every voice your key can use:
 ```bash
 hermes speechify voices
 hermes speechify voices --locale en-GB
+hermes speechify voices --model simba-3.2
 hermes speechify voices --search oliver
 ```
 
@@ -115,6 +116,10 @@ is not English, the plugin uses `simba-3.0` unless you name a model yourself.
 | `flac` | Not offered by the API. You get WAV instead |
 
 For live voice mode the plugin streams raw 24 kHz PCM to Hermes's speaker.
+
+**Using Hermes on Telegram, Discord or WhatsApp?** Set `output_format: ogg`.
+Speechify then sends Opus directly, so replies arrive as voice bubbles even
+when ffmpeg is not installed. With `mp3`, Hermes needs ffmpeg to convert them.
 
 ## How it talks to Speechify
 

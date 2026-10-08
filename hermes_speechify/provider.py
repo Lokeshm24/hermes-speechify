@@ -148,11 +148,17 @@ class SpeechifyTTSProvider(TTSProvider):
             return []
 
     def fetch_voices(
-        self, *, model: str | None = None, locale: str | None = None
+        self, *, model: str | None = None, locale: str | None = None, any_model: bool = False
     ) -> list[dict[str, Any]]:
-        """Like :meth:`list_voices` but raises :class:`SpeechifyError` on failure."""
+        """Like :meth:`list_voices` but raises :class:`SpeechifyError` on failure.
+
+        Filters to ``model`` (default: the configured model) unless ``any_model``.
+        """
         config = speechify_config()
-        model = model or str_setting(config, "model") or DEFAULT_MODEL
+        if any_model:
+            model = None
+        elif not model:
+            model = str_setting(config, "model") or DEFAULT_MODEL
         cache_key = f"{model}|{locale or ''}"
         with self._voice_lock:
             cached = self._voice_cache.get(cache_key)
@@ -168,6 +174,11 @@ class SpeechifyTTSProvider(TTSProvider):
                 "gender": v.get("gender") or "",
                 "preview_url": v.get("preview_audio") or "",
                 "type": v.get("type") or "",
+                "models": [
+                    m.get("name")
+                    for m in v.get("models") or []
+                    if isinstance(m, dict) and m.get("name")
+                ],
             }
             for v in raw
             if v.get("id")

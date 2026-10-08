@@ -76,6 +76,9 @@ def _error_from_response(response: requests.Response) -> SpeechifyError:
     elif status == 402:
         hint = " Your Speechify workspace is out of credits."
 
+    message = message.strip()
+    if hint and message[-1:] not in ".!?":
+        message += "."
     label = f"HTTP {status}" + (f" {code}" if code else "")
     suffix = f" (request id {request_id})" if request_id else ""
     return SpeechifyError(
