@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hermes-speechify"
+version = "0.1.0"
+description = "Speechify text-to-speech provider for Hermes Agent"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Speechify" }]
+keywords = ["hermes-agent", "speechify", "text-to-speech", "tts", "voice"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+  "requests>=2.31,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/Speechify-AI/hermes-speechify"
+Documentation = "https://docs.speechify.ai"
+Issues = "https://github.com/Speechify-AI/hermes-speechify/issues"
+
+[project.entry-points."hermes_agent.plugins"]
+speechify = "hermes_speechify:register"
+
+[dependency-groups]
+dev = [
+  "pytest>=8,<10",
+  "pytest-cov>=5,<8",
+  "ruff>=0.6,<0.16",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["hermes_speechify"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+markers = ["live: calls the real Speechify API (needs SPEECHIFY_API_KEY)"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
