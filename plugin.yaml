@@ -7,7 +7,7 @@ kind: backend
 license: MIT
 homepage: https://github.com/Lokeshm24/hermes-speechify
 tags: [tts, voice, speechify]
-requires_hermes: ">=0.21"
+requires_hermes: ">=0.21.5"
 requires_env:
   - name: SPEECHIFY_API_KEY
     description: "Speechify API key for text-to-speech"
