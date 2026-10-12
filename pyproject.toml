@@ -26,9 +26,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Lokeshm24/hermes-speechify"
+Homepage = "https://github.com/Speechify-AI/hermes-speechify"
 Documentation = "https://docs.speechify.ai"
-Issues = "https://github.com/Lokeshm24/hermes-speechify/issues"
+Issues = "https://github.com/Speechify-AI/hermes-speechify/issues"
 
 [project.entry-points."hermes_agent.plugins"]
 speechify = "hermes_speechify:register"

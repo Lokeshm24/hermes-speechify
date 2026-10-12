@@ -5,7 +5,7 @@ description: "Speechify text-to-speech for Hermes Agent: Simba 3 voices with low
 author: Speechify
 kind: backend
 license: MIT
-homepage: https://github.com/Lokeshm24/hermes-speechify
+homepage: https://github.com/Speechify-AI/hermes-speechify
 tags: [tts, voice, speechify]
 requires_hermes: ">=0.21.5"
 requires_env:

@@ -21,7 +21,7 @@ You need a Speechify API key. Create one at
 [console.speechify.ai](https://console.speechify.ai).
 
 ```bash
-hermes plugins install Lokeshm24/hermes-speechify
+hermes plugins install Speechify-AI/hermes-speechify
 hermes plugins enable speechify
 ```
 
