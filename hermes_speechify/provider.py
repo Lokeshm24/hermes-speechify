@@ -120,7 +120,7 @@ class SpeechifyTTSProvider(TTSProvider):
                 {
                     "key": API_KEY_ENV,
                     "prompt": "Speechify API key",
-                    "url": "https://console.speechify.ai",
+                    "url": "https://platform.speechify.ai/signup?utm_source=hermes&utm_medium=integration&utm_campaign=hermes-agent",
                 }
             ],
         }

@@ -70,7 +70,7 @@ def _error_from_response(response: requests.Response) -> SpeechifyError:
     status = response.status_code
     hint = ""
     if status == 401:
-        hint = " Check SPEECHIFY_API_KEY (create one at https://console.speechify.ai)."
+        hint = " Check SPEECHIFY_API_KEY (create one at https://platform.speechify.ai/signup?utm_source=hermes&utm_medium=integration&utm_campaign=hermes-agent)."
     elif code == "voice_not_found":
         hint = " Run `hermes speechify voices` to see the voices your key can use."
     elif status == 402:
@@ -95,7 +95,7 @@ class SpeechifyClient:
     def __init__(self, api_key: str, *, base_url: str = DEFAULT_BASE_URL, timeout: float = 60.0):
         if not api_key:
             raise SpeechifyError(
-                "SPEECHIFY_API_KEY is not set. Create a key at https://console.speechify.ai "
+                "SPEECHIFY_API_KEY is not set. Create a key at https://platform.speechify.ai/signup?utm_source=hermes&utm_medium=integration&utm_campaign=hermes-agent "
                 "and add it to ~/.hermes/.env"
             )
         self._api_key = api_key
@@ -108,7 +108,7 @@ class SpeechifyClient:
             "Speechify-Version": API_VERSION,
             "User-Agent": f"hermes-speechify/{__version__}",
             # Attribution only: lets Speechify see traffic that comes through this plugin.
-            "Speechify-Caller": "hermes-speechify",
+            "Speechify-Caller": "hermes-agent",
             "Speechify-Caller-Version": __version__,
         }
         headers.update(extra)

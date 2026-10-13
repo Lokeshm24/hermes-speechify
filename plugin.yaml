@@ -11,5 +11,5 @@ requires_hermes: ">=0.21.5"
 requires_env:
   - name: SPEECHIFY_API_KEY
     description: "Speechify API key for text-to-speech"
-    url: "https://console.speechify.ai"
+    url: "https://platform.speechify.ai/signup?utm_source=hermes&utm_medium=integration&utm_campaign=hermes-agent"
     secret: true

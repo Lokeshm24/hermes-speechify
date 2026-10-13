@@ -18,7 +18,7 @@ gateway platforms.
 ## Install
 
 You need a Speechify API key. Create one at
-[console.speechify.ai](https://console.speechify.ai).
+[platform.speechify.ai](https://platform.speechify.ai/signup?utm_source=github&utm_medium=readme&utm_campaign=hermes-agent).
 
 ```bash
 hermes plugins install Speechify-AI/hermes-speechify

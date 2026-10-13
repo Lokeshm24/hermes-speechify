@@ -45,7 +45,7 @@ def test_synthesize_mp3_defaults(fake_env, http, tmp_path):
     assert call["stream"] is True
     assert call["headers"]["Authorization"] == "Bearer test-key"
     assert call["headers"]["Speechify-Version"] == API_VERSION == "2026-09-30"
-    assert call["headers"]["Speechify-Caller"] == "hermes-speechify"
+    assert call["headers"]["Speechify-Caller"] == "hermes-agent"
     assert call["headers"]["Speechify-Caller-Version"] == __version__
     assert call["json"] == {
         "input": "Hello there.",
