@@ -107,6 +107,9 @@ class SpeechifyClient:
             "Authorization": f"Bearer {self._api_key}",
             "Speechify-Version": API_VERSION,
             "User-Agent": f"hermes-speechify/{__version__}",
+            # Attribution only: lets Speechify see traffic that comes through this plugin.
+            "Speechify-Caller": "hermes-speechify",
+            "Speechify-Caller-Version": __version__,
         }
         headers.update(extra)
         return headers

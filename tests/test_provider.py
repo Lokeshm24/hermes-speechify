@@ -7,6 +7,7 @@ from conftest import FakeResponse
 
 from hermes_speechify.client import API_VERSION, SpeechifyError
 from hermes_speechify.provider import SpeechifyTTSProvider, build_input
+from hermes_speechify import __version__
 
 
 def test_identity_and_catalog():
@@ -44,6 +45,8 @@ def test_synthesize_mp3_defaults(fake_env, http, tmp_path):
     assert call["stream"] is True
     assert call["headers"]["Authorization"] == "Bearer test-key"
     assert call["headers"]["Speechify-Version"] == API_VERSION == "2026-09-30"
+    assert call["headers"]["Speechify-Caller"] == "hermes-speechify"
+    assert call["headers"]["Speechify-Caller-Version"] == __version__
     assert call["json"] == {
         "input": "Hello there.",
         "voice_id": "geffen_32",
