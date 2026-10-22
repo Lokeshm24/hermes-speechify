@@ -15,7 +15,7 @@ def _voice(voice_id, locale="en-US", vtype="shared"):
         "display_name": voice_id.title(),
         "locale": locale,
         "gender": "male",
-        "models": [{"name": "simba-3.2", "languages": []}],
+        "models": [{"name": "simba-3.5", "languages": []}],
         "preview_audio": f"https://cdn.test/{voice_id}.mp3",
         "type": vtype,
     }
@@ -49,12 +49,12 @@ def test_list_voices_follows_cursor(fake_env, http):
         "gender": "male",
         "preview_url": "https://cdn.test/alec.mp3",
         "type": "shared",
-        "models": ["simba-3.2"],
+        "models": ["simba-3.5"],
     }
     calls = http["calls"]
     assert [c["params"].get("cursor") for c in calls] == [None, "c1", "c2"]
     assert all(c["params"]["limit"] == 200 for c in calls)
-    assert all(c["params"]["model"] == "simba-3.2" for c in calls)
+    assert all(c["params"]["model"] == "simba-3.5" for c in calls)
     assert all(c["headers"]["Speechify-Version"] == "2026-09-30" for c in calls)
 
 

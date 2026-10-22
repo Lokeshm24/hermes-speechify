@@ -75,3 +75,15 @@ def test_live_bad_key(monkeypatch, tmp_path):
     with pytest.raises(SpeechifyError) as info:
         SpeechifyTTSProvider().synthesize("Hi", str(tmp_path / "a.mp3"))
     assert info.value.status == 401
+
+
+def test_live_default_model_speaks_other_languages(provider, monkeypatch, tmp_path):
+    from hermes_speechify import provider as mod
+
+    assert provider.default_model() == "simba-3.5"
+    monkeypatch.setattr(mod, "speechify_config", lambda: {"language": "fr-FR"})
+    out = provider.synthesize(
+        "Bonjour, ceci est un test.", str(tmp_path / "fr.mp3"), voice="adeline"
+    )
+    with open(out, "rb") as fh:
+        assert len(fh.read()) > 1000

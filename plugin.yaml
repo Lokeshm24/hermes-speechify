@@ -1,7 +1,7 @@
 manifest_version: 2
 name: speechify
-version: 0.1.1
-description: "Speechify text-to-speech for Hermes Agent: Simba 3 voices with low-latency streaming."
+version: 0.1.2
+description: "Speechify text-to-speech for Hermes Agent: Simba 3.5 voices in 48 languages with low-latency streaming."
 author: Speechify
 kind: backend
 license: MIT

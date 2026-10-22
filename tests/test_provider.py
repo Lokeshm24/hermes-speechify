@@ -15,8 +15,8 @@ def test_identity_and_catalog():
     assert p.name == "speechify"
     assert p.display_name == "Speechify"
     assert p.default_voice() == "geffen_32"
-    assert p.default_model() == "simba-3.2"
-    assert [m["id"] for m in p.list_models()] == ["simba-3.2", "simba-3.0"]
+    assert p.default_model() == "simba-3.5"
+    assert [m["id"] for m in p.list_models()] == ["simba-3.5", "simba-3.2", "simba-3.0"]
     assert p.voice_compatible is True
     assert p.streams_pcm is True and p.stream_sample_rate == 24000
     schema = p.get_setup_schema()
@@ -50,7 +50,7 @@ def test_synthesize_mp3_defaults(fake_env, http, tmp_path):
     assert call["json"] == {
         "input": "Hello there.",
         "voice_id": "geffen_32",
-        "model": "simba-3.2",
+        "model": "simba-3.5",
         "output_format": "mp3_24000_128",
     }
 
@@ -87,8 +87,8 @@ def test_config_section_used(fake_env, http, tmp_path):
     assert call["timeout"] == 7
     assert call["json"]["voice_id"] == "config_voice"
     assert call["json"]["language"] == "fr-FR"
-    # simba-3.2 is English only, so a non-English language picks simba-3.0
-    assert call["json"]["model"] == "simba-3.0"
+    # simba-3.5 speaks every language, so a non-English language keeps the default model
+    assert call["json"]["model"] == "simba-3.5"
     assert call["json"]["options"] == {"text_normalization": True}
 
 

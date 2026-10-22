@@ -15,7 +15,7 @@ def setup(parser: argparse.ArgumentParser) -> None:
 
     voices = sub.add_parser("voices", help="List the Speechify voices your API key can use")
     voices.add_argument(
-        "--model", help="Only voices for this model, e.g. simba-3.2 (default: all models)"
+        "--model", help="Only voices for this model, e.g. simba-3.5 (default: all models)"
     )
     voices.add_argument("--locale", help="Only voices for this locale, e.g. en or en-US")
     voices.add_argument("--search", help="Only voices whose id or name contains this text")

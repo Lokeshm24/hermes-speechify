@@ -22,8 +22,7 @@ API_KEY_ENV = "SPEECHIFY_API_KEY"
 BASE_URL_ENV = "SPEECHIFY_BASE_URL"
 
 DEFAULT_VOICE = "geffen_32"
-DEFAULT_MODEL = "simba-3.2"  # English, lowest latency
-MULTILINGUAL_MODEL = "simba-3.0"  # English + de, es, fr, it, pt
+DEFAULT_MODEL = "simba-3.5"  # 48 languages, every voice
 
 # Raw PCM for Hermes's streaming speaker: 16-bit little endian mono.
 PCM_SAMPLE_RATE = 24000
@@ -40,8 +39,12 @@ _FORMATS: dict[str, tuple[str, str]] = {
 
 _MODELS = [
     {
+        "id": "simba-3.5",
+        "display": "Simba 3.5 (48 languages, every voice, pronunciation support)",
+    },
+    {
         "id": "simba-3.2",
-        "display": "Simba 3.2 (English, lowest latency, most expressive)",
+        "display": "Simba 3.2 (English only, lowest latency)",
     },
     {
         "id": "simba-3.0",
@@ -115,7 +118,7 @@ class SpeechifyTTSProvider(TTSProvider):
         return {
             "name": "Speechify",
             "badge": "paid",
-            "tag": "Simba 3 streaming voices, low latency",
+            "tag": "Simba 3.5 streaming voices, 48 languages",
             "env_vars": [
                 {
                     "key": API_KEY_ENV,
@@ -199,10 +202,8 @@ class SpeechifyTTSProvider(TTSProvider):
     ) -> tuple[str, str, str | None]:
         voice_id = voice or str_setting(config, "voice") or DEFAULT_VOICE
         language = str_setting(config, "language")
-        default_model = DEFAULT_MODEL
-        if language and not language.lower().startswith("en"):
-            default_model = MULTILINGUAL_MODEL  # simba-3.2 is English only
-        resolved_model = model or str_setting(config, "model") or default_model
+        # simba-3.5 speaks every language, so the language never changes the model.
+        resolved_model = model or str_setting(config, "model") or DEFAULT_MODEL
         return voice_id, resolved_model, language
 
     def _options(self, config: dict[str, Any]) -> dict[str, Any]:
